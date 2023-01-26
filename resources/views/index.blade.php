@@ -2,32 +2,55 @@
 
 
 @section('content')
+<section>
+    <div class="container position-relative">
 
+        <div class="my-box">
 
-<div class="container py-5 text-end">
-    <a href="{{ route('comics.create') }}" class="btn btn-primary">Aggiungi</a>
-</div>
+            <span class="bg-primary text-white px-3 py-2 fw-bold ">
+                <span>CURRENT SERIES</span>
+            </span>
 
-<div class="container py-5">
-    <div class="row">
-        @foreach ($comics as $comic)
-        <div class="col ">
-            <div class="card h-100">
-                
-                <div class="card-title">
-                    <h4>Titolo: {{$comic->title}}</h4>
-                </div>
-
-                <div class="card-body">
-                    <h4>Descrizione: {{$comic->description}}</h4>
-                    <h4>Prezzo: {{$comic->price}}</h4>
-                    <h4>Data Pubblicazione: {{date("d-m-Y", strtotime($comic['sale_date']))}}</h4>
-                </div>
-
-            </div>
         </div>
-        @endforeach
+
     </div>
-</div>
+</section>
+
+<section>
+    <div class="container position-relative">
+
+        <div class="my-box end-0">
+
+            <span class="text-white px-3 py-3 fw-bold ">
+                <a href="{{ route('comics.create') }}" class="btn btn-primary">Aggiungi</a>
+            </span>
+
+        </div>
+
+
+    </div>
+</section>
+
+<section class="bg-dark py-4">
+    <div class="container py-5">
+
+
+
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 text-white g-4 px-2">
+
+            @foreach ($comics as $comic)
+            <div class="col">
+                <a href="{{ route('comics.show', $comic->id) }}">
+                    <img src="{{$comic['thumb']}}" alt="" class="img-comic">
+                </a>
+                <div class="fw-small mt-2">{{$comic['series']}}</div>
+            </div>
+            @endforeach
+
+        </div>
+    </div>
+</section>
+
 
 @endsection

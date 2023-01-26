@@ -8,7 +8,7 @@ $shopLinks=["Shop DC","Shop DC Collectbles"];
 
 <footer>
 
-    <section class="bg-dark">
+    <section class="bg-footer">
         <div class="container">
             <div class="row">
                 <div class="col">
