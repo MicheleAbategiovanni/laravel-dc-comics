@@ -18,6 +18,24 @@
             </div>
         </div>
 
+        <div class="position-absolute end-0">
+            <a href="{{ route('comics.edit', $comic->id)}}" class="btn btn-secondary">
+                <i class="bi bi-pencil-square"></i>
+            </a>
+
+            <form action="{{ route('comics.destroy', $comic->id) }}" method="POST" class="delete-comic d-inline-block">
+                @csrf()
+                @method('delete')
+
+                <button class="btn btn-danger">
+                    <i class="bi bi-trash-fill "></i>
+                </button>
+            </form>
+
+        </div>
+
+
+
     </div>
 </section>
 
@@ -50,5 +68,22 @@
 
 
 </div>
+
+
+<script>
+    const deleteComic = document.querySelector(".delete-comic");
+
+    deleteComic.addEventListener("submit", function(e) {
+        
+        e.preventDefault();
+        
+        const message = confirm("Vuoi eliminare questo prodotto?");
+
+        if (message === true) {
+            deleteComic.submit();
+        }
+
+      })
+</script>
 
 @endsection

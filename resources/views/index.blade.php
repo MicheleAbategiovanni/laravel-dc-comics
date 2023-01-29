@@ -3,7 +3,7 @@
 
 @section('content')
 <section>
-    <div class="container position-relative">
+    <div class="container position-relative d-flex align-items-center">
 
         <div class="my-box">
 
@@ -13,20 +13,13 @@
 
         </div>
 
-    </div>
-</section>
-
-<section>
-    <div class="container position-relative">
-
         <div class="my-box end-0">
 
             <span class="text-white px-3 py-3 fw-bold ">
-                <a href="{{ route('comics.create') }}" class="btn btn-primary">Aggiungi</a>
+                <a href="{{ route('comics.create') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i></a>
             </span>
 
         </div>
-
 
     </div>
 </section>
