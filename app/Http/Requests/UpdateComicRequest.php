@@ -13,7 +13,7 @@ class UpdateComicRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,11 +26,21 @@ class UpdateComicRequest extends FormRequest
         return [
             "title" => "required|min:10|max:255",
             "description" => "required|string",
-            "price" => "required|float",
-            "thumb" => "required|url|string",
+            "price" => "required|decimal:2",
+            "thumb" => "required|string|url",
             "series" => "required|string",
             "sale_date" => "required|date|string",
             "type" => "required|string",
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "title.required" => "Il titolo è obbligatorio",
+            "title.min" =>  "Il titolo deve avere almeno :min caratteri",
+            "title.max" =>  "Il titolo deve avere massimo :max caratteri",
+            "content.required" => "Ti pare che posso salvare un post senza contenuto?",
         ];
     }
 }

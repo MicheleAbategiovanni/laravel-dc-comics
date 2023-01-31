@@ -15,6 +15,11 @@ class ComicController extends Controller
     private $validationRules = [
         "title" => "required|min:10|max:255",
         "description" => "required|string",
+        "price" => "required|decimal:2",
+        "thumb" => "required|string|url",
+        "series" => "required|string",
+        "sale_date" => "required|date|string",
+        "type" => "required|string",
     ];
 
     /**
@@ -116,6 +121,11 @@ class ComicController extends Controller
         $result = Validator::make($data, [
             "title" => "required|min:10|max:255",
             "description" => "required|string",
+            "price" => "required|decimal:2",
+            "thumb" => "required|string|url",
+            "series" => "required|string",
+            "sale_date" => "required|date|string",
+            "type" => "required|string",
         ], [
             "title.required" => "Il titolo è obbligatorio",
             "title.min" =>  "Il titolo deve avere almeno :min caratteri",

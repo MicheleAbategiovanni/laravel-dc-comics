@@ -35,7 +35,6 @@
         @include('components.form-input', [
         'label' => 'Prezzo',
         'inputName' => 'price',
-        'type' => 'number',
         ])
 
         @include('components.form-input', [

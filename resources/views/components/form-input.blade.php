@@ -17,10 +17,6 @@ $defaultValue = empty($defaultValue) ? "" : $defaultValue;
     <input type="date" class="form-control @error($inputName) is-invalid @enderror" name="{{ $inputName }}"
         value="{{ old($inputName, $defaultValue) }}">
     
-    @elseif($type === 'number')
-    <input type="number" class="form-control @error($inputName) is-invalid @enderror" name="{{ $inputName }}"
-    value="{{ old($inputName, $defaultValue) }}">
-    
     @else
 
     <input type="text" class="form-control @error($inputName) is-invalid @enderror" name="{{ $inputName }}"

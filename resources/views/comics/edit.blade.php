@@ -20,35 +20,52 @@
 
         @method('put')
 
-        <div class="input-group mb-3">
-            <span class="input-group-text">Titolo</span>
-            <input type="text" class="form-control" placeholder="Inserisci Titolo" name="title" value="{{ $comic->title }}">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Descrizione</span>
-            <textarea type="text" class="form-control" cols="30" rows="3" placeholder="Inserisci Titolo"
-                name="description"> {{ $comic->description }} </textarea>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Prezzo</span>
-            <input type="text" class="form-control" placeholder="inserisci prezzo..." name="price" value="{{ $comic->price }}">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Copertina</span>
-            <input type="text" class="form-control" placeholder="inserisci foto copertina..." name="thumb" value="{{ $comic->thumb }}">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Serie</span>
-            <input type="text" class="form-control" placeholder="inserisci la serie..." name="series" value="{{ $comic->series }}">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Data d'uscita:</span>
-            <input type="date" class="form-control" name="sale_date" value="{{ $comic->sale_date }}">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Tipo</span>
-            <input type="text" class="form-control" placeholder="" name="type" value="{{ $comic->type }}">
-        </div>
+        @include('components.form-input', [
+        'label' => 'Titolo',
+        'inputName' => 'title',
+        'defaultValue' => $comic->title
+        ])
+
+        @include('components.form-input', [
+        'label' => 'Descrizione',
+        'inputName' => 'description',
+        'type' => 'textarea',
+        'defaultValue' => $comic->description
+        ])
+
+        @include('components.form-input', [
+        'label' => 'Prezzo',
+        'inputName' => 'price',
+        'type' => 'number',
+        'defaultValue' => $comic->price
+        ])
+
+        @include('components.form-input', [
+        'label' => 'Copertina',
+        'inputName' => 'thumb',
+        'defaultValue' => $comic->thumb
+        ])
+
+        @include('components.form-input', [
+        'label' => 'Serie',
+        'inputName' => 'series',
+        'defaultValue' => $comic->series
+        ])
+
+        @include('components.form-input', [
+        'label' => "Data d'uscita",
+        'inputName' => 'sale_date',
+        'defaultValue' => $comic->sale_date,
+        'type' => 'date'
+        ])
+
+        @include('components.form-input', [
+        'label' => "Tipo",
+        'inputName' => 'type',
+        'defaultValue' => $comic->type,
+        ])
+
+
 
         <button class="btn btn-primary" type="submit"><i class="bi bi-check-circle-fill"></i></button>
     </form>
