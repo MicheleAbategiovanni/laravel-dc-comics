@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\CreateComicRequest;
 use App\Http\Requests\StoreComicRequest;
 use App\Http\Requests\UpdateComicRequest;
 use App\Models\Comic;
@@ -43,19 +45,11 @@ class ComicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreComicRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
-        $comic = new Comic();
-        $comic->title = $data["title"];
-        $comic->description = $data["description"];
-        $comic->price = (float) $data["price"];
-        $comic->thumb = $data["thumb"];
-        $comic->series = $data["series"];
-        $comic->sale_date = $data['sale_date'];
-        $comic->type = $data["type"];
-        $comic->save();
+        $comic = Comic::create($data);
 
         return redirect()->route("comics.show", $comic->id);
     }
@@ -93,11 +87,9 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateComicRequest $request, Comic $comic)
     {
-        $data = $request->all();
-
-        $comic = Comic::findOrFail($id);
+        $data = $request->validated();
 
         $comic->update($data);
 
@@ -128,7 +120,7 @@ class ComicController extends Controller
             "title.required" => "Il titolo è obbligatorio",
             "title.min" =>  "Il titolo deve avere almeno :min caratteri",
             "title.max" =>  "Il titolo deve avere massimo :max caratteri",
-            "content.required" => "Il contenuto del post è obbligatorio",
+            "description.required" => "Il contenuto del post è obbligatorio",
         ])->validate();
 
         return $result;

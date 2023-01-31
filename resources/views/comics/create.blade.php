@@ -6,39 +6,58 @@
 
     <h1>Creazione nuovo fumetto</h1>
 
-    <form action="{{ route('comics.store') }}" method="POST">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        I dati inseriti non sono validi:
+
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    <form action="{{ route('comics.store') }}" method="POST" class="py-3">
         @csrf
 
+        @include('components.form-input', [
+        'label' => 'Titolo',
+        'inputName' => 'title',
+        ])
 
-        <div class="input-group mb-3">
-            <span class="input-group-text">Titolo</span>
-            <input type="text" class="form-control" placeholder="Inserisci Titolo" name="title">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Descrizione</span>
-            <textarea type="text" class="form-control" cols="30" rows="3" placeholder="Inserisci Titolo"
-                name="description"> </textarea>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Prezzo</span>
-            <input type="text" class="form-control" placeholder="inserisci prezzo..." name="price">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Copertina</span>
-            <input type="text" class="form-control" placeholder="inserisci foto copertina..." name="thumb">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Serie</span>
-            <input type="text" class="form-control" placeholder="inserisci la serie..." name="series">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Data d'uscita:</span>
-            <input type="date" class="form-control" name="sale_date">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Tipo</span>
-            <input type="text" class="form-control" placeholder="" name="type">
-        </div>
+        @include('components.form-input', [
+        'label' => 'Descrizione',
+        'inputName' => 'description',
+        'type' => 'textarea',
+        ])
+
+        @include('components.form-input', [
+        'label' => 'Prezzo',
+        'inputName' => 'price',
+        'type' => 'number',
+        ])
+
+        @include('components.form-input', [
+        'label' => 'Copertina',
+        'inputName' => 'thumb',
+        ])
+
+        @include('components.form-input', [
+        'label' => 'Serie',
+        'inputName' => 'series',
+        ])
+
+        @include('components.form-input', [
+        'label' => "Data d'uscita",
+        'inputName' => 'sale_date',
+        'type' => 'date'
+        ])
+
+        @include('components.form-input', [
+        'label' => "Tipo",
+        'inputName' => 'type',
+        ])
 
         <button class="btn btn-primary" type="submit">Salva prodotto</button>
     </form>
