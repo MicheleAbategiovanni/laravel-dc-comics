@@ -1,12 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\StoreComicRequest;
+use App\Http\Requests\UpdateComicRequest;
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ComicController extends Controller
 {
+
+    private $validationRules = [
+        "title" => "required|min:10|max:255",
+        "description" => "required|string",
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -109,5 +117,20 @@ class ComicController extends Controller
         $comic->delete();
 
         return redirect()->route("comics.index");
+    }
+
+    private function validation($data)
+    {
+        $result = Validator::make($data, [
+            "title" => "required|min:10|max:255",
+            "description" => "required|string",
+        ], [
+            "title.required" => "Il titolo è obbligatorio",
+            "title.min" =>  "Il titolo deve avere almeno :min caratteri",
+            "title.max" =>  "Il titolo deve avere massimo :max caratteri",
+            "content.required" => "Il contenuto del post è obbligatorio",
+        ])->validate();
+
+        return $result;
     }
 }
