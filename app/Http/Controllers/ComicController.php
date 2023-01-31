@@ -65,10 +65,8 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comic $comic)
     {
-        $comic = Comic::findOrFail($id);
-
         return view("comics.show", compact('comic'));
     }
 
@@ -78,9 +76,9 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comic $comic)
     {
-        $comic = Comic::findOrFail($id);
+       
 
         return view("comics.edit", compact('comic'));
     }
@@ -98,7 +96,9 @@ class ComicController extends Controller
 
         $comic->update($data);
 
-        return redirect()->route("comics.show", $comic->id);
+       
+
+        return redirect()->route("comics.show", $comic);
     }
 
     /**

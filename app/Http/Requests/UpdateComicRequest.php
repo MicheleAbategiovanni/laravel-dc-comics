@@ -40,7 +40,13 @@ class UpdateComicRequest extends FormRequest
             "title.required" => "Il titolo è obbligatorio",
             "title.min" =>  "Il titolo deve avere almeno :min caratteri",
             "title.max" =>  "Il titolo deve avere massimo :max caratteri",
-            "content.required" => "Ti pare che posso salvare un post senza contenuto?",
+            "description.required" => "Il contenuto è obbligatorio",
+            "price.required" => "Il prezzo è obbligatorio",
+            "thumb.required" => "La copertina è obbligatoria",
+            "series.required" => "Il nome della serie è obbligatorio",
+            "sale_date.required" => "La data d'uscita è obbligatorio",
+            "type.required" => "Il tipo è obbligatorio",
+
         ];
     }
 }

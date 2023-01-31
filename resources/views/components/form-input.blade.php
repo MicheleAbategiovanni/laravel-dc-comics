@@ -11,7 +11,7 @@ $defaultValue = empty($defaultValue) ? "" : $defaultValue;
 
     @if ($type === 'textarea')
     <textarea name="description" cols="30" rows="3"
-        class="form-control @error('content') is-invalid @enderror">{{ old('description', $defaultValue) }}</textarea>
+        class="form-control @error('description') is-invalid @enderror">{{ old('description', $defaultValue) }}</textarea>
 
     @elseif($type === 'date')
     <input type="date" class="form-control @error($inputName) is-invalid @enderror" name="{{ $inputName }}"
