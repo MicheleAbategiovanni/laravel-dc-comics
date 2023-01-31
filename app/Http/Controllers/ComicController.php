@@ -2,11 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateComicRequest;
+use App\Http\Requests\StoreComicRequest;
+use App\Http\Requests\UpdateComicRequest;
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ComicController extends Controller
 {
+
+    private $validationRules = [
+        "title" => "required|min:10|max:255",
+        "description" => "required|string",
+        "price" => "required|decimal:2",
+        "thumb" => "required|string|url",
+        "series" => "required|string",
+        "sale_date" => "required|date|string",
+        "type" => "required|string",
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -35,19 +50,11 @@ class ComicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreComicRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
-        $comic = new Comic();
-        $comic->title = $data["title"];
-        $comic->description = $data["description"];
-        $comic->price = (float) $data["price"];
-        $comic->thumb = $data["thumb"];
-        $comic->series = $data["series"];
-        $comic->sale_date = $data['sale_date'];
-        $comic->type = $data["type"];
-        $comic->save();
+        $comic = Comic::create($data);
 
         return redirect()->route("comics.show", $comic->id);
     }
@@ -58,10 +65,8 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comic $comic)
     {
-        $comic = Comic::findOrFail($id);
-
         return view("comics.show", compact('comic'));
     }
 
@@ -71,9 +76,9 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comic $comic)
     {
-        $comic = Comic::findOrFail($id);
+       
 
         return view("comics.edit", compact('comic'));
     }
@@ -85,15 +90,15 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateComicRequest $request, Comic $comic)
     {
-        $data = $request->all();
-
-        $comic = Comic::findOrFail($id);
+        $data = $request->validated();
 
         $comic->update($data);
 
-        return redirect()->route("comics.show", $comic->id);
+       
+
+        return redirect()->route("comics.show", $comic);
     }
 
     /**
@@ -109,5 +114,30 @@ class ComicController extends Controller
         $comic->delete();
 
         return redirect()->route("comics.index");
+    }
+
+    private function validation($data)
+    {
+        $result = Validator::make($data, [
+            "title" => "required|min:10|max:255",
+            "description" => "required|string",
+            "price" => "required|decimal:2",
+            "thumb" => "required|string|url",
+            "series" => "required|string",
+            "sale_date" => "required|date|string",
+            "type" => "required|string",
+        ], [
+            "title.required" => "Il titolo è obbligatorio",
+            "title.min" =>  "Il titolo deve avere almeno :min caratteri",
+            "title.max" =>  "Il titolo deve avere massimo :max caratteri",
+            "description.required" => "Il contenuto è obbligatorio",
+            "price.required" => "Il prezzo è obbligatorio",
+            "thumb.required" => "La copertina è obbligatoria",
+            "series.required" => "Il nome della serie è obbligatorio",
+            "sale_date.required" => "La data d'uscita è obbligatorio",
+            "type.required" => "Il tipo è obbligatorio",
+        ])->validate();
+
+        return $result;
     }
 }
