@@ -130,7 +130,12 @@ class ComicController extends Controller
             "title.required" => "Il titolo è obbligatorio",
             "title.min" =>  "Il titolo deve avere almeno :min caratteri",
             "title.max" =>  "Il titolo deve avere massimo :max caratteri",
-            "description.required" => "Il contenuto del post è obbligatorio",
+            "description.required" => "Il contenuto è obbligatorio",
+            "price.required" => "Il prezzo è obbligatorio",
+            "thumb.required" => "La copertina è obbligatoria",
+            "series.required" => "Il nome della serie è obbligatorio",
+            "sale_date.required" => "La data d'uscita è obbligatorio",
+            "type.required" => "Il tipo è obbligatorio",
         ])->validate();
 
         return $result;
